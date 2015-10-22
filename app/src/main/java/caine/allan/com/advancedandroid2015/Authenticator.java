@@ -6,6 +6,7 @@ import android.accounts.AccountAuthenticatorResponse;
 import android.accounts.AccountManager;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -35,7 +36,8 @@ public class Authenticator extends AbstractAccountAuthenticator {
 
         Bundle result = new Bundle();
         if(TextUtils.isEmpty(authToken)){
-            // will send user to authenticate activity
+            Intent intent = AuthenticationActivity.newIntent(mContext, account.type, account.name);
+            result.putParcelable(AccountManager.KEY_INTENT, intent);
         }else{
             result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
             result.putString(AccountManager.KEY_ACCOUNT_TYPE, account.type);
@@ -51,15 +53,16 @@ public class Authenticator extends AbstractAccountAuthenticator {
 
     @Override
     public Bundle addAccount(AccountAuthenticatorResponse response, String accountType, String authTokenType, String[] requiredFeatures, Bundle options) throws NetworkErrorException {
-        return null;
+        Intent intent = AuthenticationActivity.newIntent(mContext, accountType, authTokenType);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(AccountManager.KEY_INTENT, intent);
+        return bundle;
     }
 
     @Override
     public Bundle confirmCredentials(AccountAuthenticatorResponse response, Account account, Bundle options) throws NetworkErrorException {
         return null;
     }
-
-
 
     @Override
     public String getAuthTokenLabel(String authTokenType) {
