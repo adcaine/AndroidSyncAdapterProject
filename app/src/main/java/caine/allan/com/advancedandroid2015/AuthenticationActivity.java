@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -76,10 +77,11 @@ public class AuthenticationActivity extends AccountAuthenticatorActivity {
             public void success(Response o, Response response) {
                 Uri uri = getResponseUri(response);
                 String oauthToken = uri.getQueryParameter("oauth_token");
-                Uri twitterOauthUri = Uri.parse(TWITTER_ENDPOINT).buildUpon()
+                Uri twitterOauthUri = Uri.parse(TWITTER_OAUTH_ENDPOINT).buildUpon()
                         .appendQueryParameter("oauth_token", oauthToken)
                         .build();
                 mWebView.setWebViewClient(mWebViewClient);
+                Log.d(TAG, twitterOauthUri.toString());
                 mWebView.loadUrl(twitterOauthUri.toString());
             }
 

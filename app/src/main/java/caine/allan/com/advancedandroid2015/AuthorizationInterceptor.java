@@ -30,7 +30,7 @@ public class AuthorizationInterceptor implements Interceptor {
                     .addHeader(AUTH_HEADER, authHeaderString)
                     .build();
         }catch (InvalidKeyException | NoSuchAlgorithmException e){
-            Log.e(TAG, "Failed to get auth header string", e);
+            Log.e(TAG, "Failed to no auth header string", e);
         }
         return chain.proceed(request);
     }

@@ -36,7 +36,7 @@ public class Authenticator extends AbstractAccountAuthenticator {
 
         Bundle result = new Bundle();
         if(TextUtils.isEmpty(authToken)){
-            Intent intent = AuthenticationActivity.newIntent(mContext, account.type, account.name);
+            Intent intent = AuthenticationActivity.newIntent(mContext, account.type, authTokenType);
             result.putParcelable(AccountManager.KEY_INTENT, intent);
         }else{
             result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
